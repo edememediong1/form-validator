@@ -1,7 +1,7 @@
 const form = document.getElementById('form')
 const username = document.getElementById('username')
 const email = document.getElementById('email')
-const password = document.getElementById('email')
+const password = document.getElementById('password')
 const password2 = document.getElementById('password2')
 
 // Showw input error message
@@ -18,6 +18,12 @@ function showSuccess(input){
     formControl.className = 'form-control success' 
 }
 
+//Check if the email is Valid 
+function isValidEmail(email){
+    const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return re.test(String(email).toLowerCase())
+}
+
 
 // Event listeners
 form.addEventListener('submit', function(e) {
@@ -31,7 +37,9 @@ form.addEventListener('submit', function(e) {
 
     if (email.value === ''){
         showError(email, 'Email is required')
-    } else {
+    } else if(!isValidEmail(email.value)){
+        showError(email,'Email is not valid')
+    }else {
         showSuccess(email);
     }
 
